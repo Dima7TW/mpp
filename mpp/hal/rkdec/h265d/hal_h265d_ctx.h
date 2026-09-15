@@ -86,6 +86,7 @@ typedef struct HalH265dCtx_t {
     HalBufs         origin_bufs;
     MppBuffer       missing_ref_buf;
     RK_U32          missing_ref_buf_size;
+    RK_U32          ps_buf_init;
 
     HalDbgCtx       *dbg_ctx;
 } HalH265dCtx;

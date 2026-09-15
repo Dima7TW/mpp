@@ -989,6 +989,10 @@ static MPP_RET hal_h265d_vdpu34x_gen_regs(void *hal,  HalTaskInfo *syn)
     if ( dxva_cxt->bitstream == NULL) {
         dxva_cxt->bitstream = mpp_buffer_get_ptr(streambuf);
     }
+    if (!reg_ctx->ps_buf_init) {
+        dxva_cxt->pp.ps_update_flag = 1;
+        dxva_cxt->pp.rps_update_flag = 1;
+    }
     if (reg_ctx->is_v34x) {
 #ifdef HW_RPS
         hw_regs->comm_gen.reg012.wait_reset_en = 1;
@@ -1129,6 +1133,7 @@ static MPP_RET hal_h265d_vdpu34x_gen_regs(void *hal,  HalTaskInfo *syn)
     } else {
         hal_h265d_output_pps_packet(hal, syn->dec.syntax.data);
     }
+    reg_ctx->ps_buf_init = 1;
 
     mpp_dev_set_reg_offset(cfg->dev, 161, reg_ctx->spspps_offset);
     /* rps */

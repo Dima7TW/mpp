@@ -416,6 +416,11 @@ static MPP_RET hal_h265d_vdpu383_gen_regs(void *hal,  HalTaskInfo *syn)
     hal_dbg_dumpf_buf(reg_ctx->dbg_ctx, "stream_in_128bit.dat", streambuf, 0,
                       mpp_buffer_get_size(streambuf), 128, "w+");
 
+    if (!reg_ctx->ps_buf_init) {
+        dxva_ctx->pp.ps_update_flag = 1;
+        dxva_ctx->pp.rps_update_flag = 1;
+    }
+
     hal_h265d_vdpu383_rps(reg_ctx, syn->dec.syntax.data, rps_ptr);
 
     hw_regs->comm_addrs.reg128_strm_base = mpp_buffer_get_fd(streambuf);
@@ -484,6 +489,7 @@ static MPP_RET hal_h265d_vdpu383_gen_regs(void *hal,  HalTaskInfo *syn)
 
     hal_h265d_vdpu38x_output_pps_packet(hal, syn->dec.syntax.data,
                                         &hw_regs->comm_addrs.reg132_scanlist_addr);
+    reg_ctx->ps_buf_init = 1;
 
     for (i = 0; i < (RK_S32)MPP_ARRAY_ELEMS(dxva_ctx->pp.RefPicList); i++) {
 

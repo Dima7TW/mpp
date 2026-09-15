@@ -773,6 +773,10 @@ static MPP_RET hal_h265d_vdpu382_gen_regs(void *hal,  HalTaskInfo *syn)
     if ( dxva_cxt->bitstream == NULL) {
         dxva_cxt->bitstream = mpp_buffer_get_ptr(streambuf);
     }
+    if (!reg_ctx->ps_buf_init) {
+        dxva_cxt->pp.ps_update_flag = 1;
+        dxva_cxt->pp.rps_update_flag = 1;
+    }
 #ifdef HW_RPS
     hw_regs->comm_paras.reg103.ref_pic_layer_same_with_cur = 0xffff;
     hal_h265d_slice_hw_rps(syn->dec.syntax.data, rps_ptr, reg_ctx->sw_rps_buf, reg_ctx->fast_mode);
@@ -900,6 +904,7 @@ static MPP_RET hal_h265d_vdpu382_gen_regs(void *hal,  HalTaskInfo *syn)
         }
     }
     hal_h265d_v382_output_pps_packet(hal, syn->dec.syntax.data);
+    reg_ctx->ps_buf_init = 1;
 
     mpp_dev_set_reg_offset(cfg->dev, 161, reg_ctx->spspps_offset);
     /* rps */
