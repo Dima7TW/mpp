@@ -734,10 +734,10 @@ static void proc_rc_cfg(MppEncImpl *enc)
     }
 
     if (set->rc_mode != MPP_ENC_RC_MODE_FIXQP) {
-        if ((set->bps_target >= 100 * SZ_1M || set->bps_target <= 1 * SZ_1K) ||
-            (set->bps_max >= 100 * SZ_1M     || set->bps_max <= 1 * SZ_1K) ||
-            (set->bps_min >= 100 * SZ_1M     || set->bps_min <= 1 * SZ_1K)) {
-            mpp_loge("invalid bit per second (bps) %d [%d:%d] out of range 1K~100M\n",
+        if ((set->bps_target >= 256 * SZ_1M || set->bps_target <= 1 * SZ_1K) ||
+            (set->bps_max >= 256 * SZ_1M     || set->bps_max <= 1 * SZ_1K) ||
+            (set->bps_min >= 256 * SZ_1M     || set->bps_min <= 1 * SZ_1K)) {
+            mpp_loge("invalid bit per second (bps) %d [%d:%d] out of range 1K~256M\n",
                      set->bps_target, set->bps_min, set->bps_max);
             mpp_loge("restore bps to %d [%d:%d]\n",
                      cfg->bps_target, cfg->bps_min, cfg->bps_max);
