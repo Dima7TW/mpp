@@ -1626,10 +1626,10 @@ static void set_rc_cfg(RcCfg *cfg, MppEncCfgSet *cfg_set)
         MppEncJpegCfg *jpeg = &cfg_set->jpeg;
 
         cfg->init_quality = 100 - jpeg->q_factor;
-        cfg->max_quality = 100 - jpeg->qf_max;
-        cfg->min_quality = 100 - jpeg->qf_min;
-        cfg->max_i_quality = 100 - jpeg->qf_max;
-        cfg->min_i_quality = 100 - jpeg->qf_min;
+        cfg->max_quality = 100 - jpeg->qf_min;
+        cfg->min_quality = 100 - jpeg->qf_max;
+        cfg->max_i_quality = 100 - jpeg->qf_min;
+        cfg->min_i_quality = 100 - jpeg->qf_max;
         cfg->fqp_min_i = 100 - jpeg->qf_max;
         cfg->fqp_max_i = 100 - jpeg->qf_min;
         cfg->fqp_min_p = 100 - jpeg->qf_max;
